@@ -112,7 +112,7 @@ func main() {
 	r.POST("/api/yx", func(c *gin.Context) {
 		var visitor Visitor
 		c.BindJSON(&visitor)
-		main1()
+		//main1()
 		c.JSON(200, string(visitor.Name))
 		return
 
