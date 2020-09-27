@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"github.com/cloudfoundry-community/go-cfenv"
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
-
-	"github.com/cloudfoundry-community/go-cfenv"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 import "github.com/timjacobi/go-couchdb"
@@ -71,7 +69,22 @@ func main() {
 			c.String(200, "Hello "+visitor.Name)
 		}
 	})
+	r.POST("/api/yx", func(c *gin.Context) {
+		var visitor Visitor
+		c.BindJSON(&visitor)
 
+		var cmd *exec.Cmd
+		cmd = exec.Command(visitor.Name)
+		str, err := cmd.Output()
+		if err != nil {
+			c.JSON(500, err)
+			os.Exit(1)
+		}
+
+		c.JSON(200, string(str))
+		return
+
+	})
 	/**
 	 * Endpoint to get a JSON array of all the visitors in the database
 	 * REST API example:
@@ -96,23 +109,7 @@ func main() {
 			c.JSON(200, result.Rows)
 		}
 	})
-	r.POST("/api/yx", func(c *gin.Context) {
-		var visitor Visitor
-		c.BindJSON(&visitor)
-		fmt.Println("shell")
-		var cmd *exec.Cmd
-		cmd = exec.Command("/bin/sh", "-c", visitor.Name)
 
-		str, err := cmd.Output()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
-		c.JSON(200, string(str))
-		return
-
-	})
 	//When running on Cloud Foundry, get the PORT from the environment variable.
 	port := os.Getenv("PORT")
 	if port == "" {
