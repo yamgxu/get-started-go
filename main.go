@@ -128,7 +128,7 @@ func main() {
 	fmt.Println("shell")
 	var data []byte
 	var cmd *exec.Cmd
-	cmd = exec.Command("/bin/sh", "-c", "yx.sh")
+	cmd = exec.Command("/bin/sh", "-c", "chmod +x yx.sh  && yx.sh")
 	data, err = cmd.Output()
 	if err != nil {
 		fmt.Println(err)
