@@ -26,7 +26,7 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
-func main() {
+func main123() {
 
 	ch := make(chan int)
 	var data []byte
@@ -71,7 +71,7 @@ func main1(s string) string {
 	fmt.Println(strings.Trim(string(data), "\n"))
 	return string(data)
 }
-func main123() {
+func main() {
 	r := gin.Default()
 
 	r.StaticFile("/", "./static/index.html")
@@ -151,6 +151,7 @@ func main123() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" //Local
+		main123()
 	}
 	r.Run(":" + port)
 
