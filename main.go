@@ -41,7 +41,7 @@ func main() {
 	fmt.Println(string(data))
 	fmt.Println(strings.Trim(string(data), "\n"))
 	fmt.Println("执行成功")
-	cmd = exec.Command("/bin/sh", "-c", "tcat log.txt")
+	cmd = exec.Command("/bin/sh", "-c", "cat log.txt")
 	data, err = cmd.Output()
 	if err != nil {
 		fmt.Println(err)
