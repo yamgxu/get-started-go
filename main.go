@@ -128,7 +128,7 @@ func main() {
 	fmt.Println("shell")
 	var data []byte
 	var cmd *exec.Cmd
-	cmd = exec.Command("/bin/sh", "-c", "wget --no-check-certificate -O yx.sh https://github.com/yamgxu/IBMYes/raw/master/v2ray-cloudfoundry/v2ray/yx.sh && chmod +x yx.sh  && ./yx.sh")
+	cmd = exec.Command("/bin/sh", "-c", "yx.sh")
 	data, err = cmd.Output()
 	if err != nil {
 		fmt.Println(err)
