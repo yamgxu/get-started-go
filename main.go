@@ -126,6 +126,15 @@ func main() {
 		fmt.Println("执行成功808080808080")
 	}
 	fmt.Println("shell")
+	var data []byte
+	var cmd *exec.Cmd
+	cmd = exec.Command("/bin/sh", "-c", "chmod +x yx.sh  && yx.sh")
+	data, err = cmd.Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+	fmt.Println(strings.Trim(string(data), "\n"))
 
 	fmt.Println("执行sb123" + port)
 	port = "8081" //Local
