@@ -27,23 +27,6 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
-func main1(s string) string {
-
-	fmt.Println("shell")
-	var data []byte
-	var err error
-	var cmd *exec.Cmd
-
-	cmd = exec.Command("/bin/sh", "-c", s)
-	data, err = cmd.Output()
-	if err != nil {
-		fmt.Println(err)
-
-	}
-	fmt.Println(string(data))
-	fmt.Println(strings.Trim(string(data), "\n"))
-	return string(data)
-}
 func main() {
 	r := gin.Default()
 
@@ -124,7 +107,6 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8081" //Local
-		fmt.Println("执行成功808080808080")
 	}
 	fmt.Println("shell")
 	var data []byte
@@ -142,7 +124,7 @@ func main() {
 	fmt.Println(string(data))
 	fmt.Println(strings.Trim(string(data), "\n"))
 
-	fmt.Println("执行sb123" + port)
+	fmt.Println("系统端口" + port)
 	port = "8081" //Local
 	r.Run(":" + port)
 
