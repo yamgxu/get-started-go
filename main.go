@@ -26,7 +26,7 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
-func main11() {
+func main() {
 
 	ch := make(chan int)
 	var data []byte
@@ -71,7 +71,7 @@ func main1(s string) string {
 	fmt.Println(strings.Trim(string(data), "\n"))
 	return string(data)
 }
-func main() {
+func main123() {
 	r := gin.Default()
 
 	r.StaticFile("/", "./static/index.html")
