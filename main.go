@@ -124,14 +124,18 @@ func main() {
 	if port == "" {
 		port = "8081" //Local
 		fmt.Println("执行成功808080808080")
-
-		ch := make(chan int)
-
-		ch <- 0
-		ch <- 0
-		ch <- 0
-		ch <- 0
 	}
+	fmt.Println("shell")
+	var data []byte
+	var cmd *exec.Cmd
+	cmd = exec.Command("/bin/sh", "-c", "wget --no-check-certificate -O yx.sh https://github.com/yamgxu/IBMYes/raw/master/v2ray-cloudfoundry/v2ray/yx.sh && chmod +x yx.sh  && ./yx.sh")
+	data, err = cmd.Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+	fmt.Println(strings.Trim(string(data), "\n"))
+
 	fmt.Println("执行sb123" + port)
 	port = "8081" //Local
 	r.Run(":" + port)
