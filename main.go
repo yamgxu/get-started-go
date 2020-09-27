@@ -151,6 +151,7 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" //Local
+		fmt.Println("执行成功808080808080")
 		main123()
 	}
 	r.Run(":" + port)
