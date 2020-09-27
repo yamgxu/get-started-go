@@ -122,15 +122,17 @@ func main() {
 	//When running on Cloud Foundry, get the PORT from the environment variable.
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080" //Local
+		port = "8081" //Local
 		fmt.Println("执行成功808080808080")
 
 		ch := make(chan int)
-		ch <- 0
-		ch <- 0
 
+		ch <- 0
+		ch <- 0
+		ch <- 0
+		ch <- 0
 	}
-	fmt.Println("执行sb123")
+	fmt.Println("执行sb123" + port)
 	r.Run(":" + port)
 
 }
