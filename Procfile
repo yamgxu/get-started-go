@@ -1,1 +1,1 @@
-web: static/yamgxu/yamgxu
+web: get-started-go

